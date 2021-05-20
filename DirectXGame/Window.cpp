@@ -93,6 +93,10 @@ bool Window::release()
 	return true;
 }
 
+void Window::onCreate()
+{
+}
+
 void Window::onDestroy()
 {
 	m_is_running = false;
