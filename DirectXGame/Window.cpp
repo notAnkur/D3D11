@@ -9,7 +9,7 @@ Window::Window() {
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 	switch (msg) {
 		case WM_CREATE: {
-			window->setHWND();
+			window->setHWND(hwnd);
 			window->onCreate();
 			break;
 		}
@@ -68,12 +68,12 @@ bool Window::broadcast() {
 
 	MSG msg;
 
+	window->onUpdate();
+
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
-	window->onUpdate();
 
 	Sleep(0);
 
@@ -107,6 +107,10 @@ void Window::setHWND(HWND hwnd)
 }
 
 void Window::onCreate()
+{
+}
+
+void Window::onUpdate()
 {
 }
 
