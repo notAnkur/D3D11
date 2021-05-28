@@ -25,8 +25,9 @@ void AppWindow::onCreate() {
 	vertex list[] = {
 		//x - y - z
 		{-0.5f, -0.5f, 0},//pos1
-		{0, 0.5f, 0},//pos2
-		{0.5f, -0.5f, 0}//pos3
+		{-0.5f, 0.5f, 0},//pos2
+		{0.5f, -0.5f, 0},//pos3
+		{0.5f, 0.5f, 0} // pos4
 	};
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
@@ -44,14 +45,17 @@ void AppWindow::onCreate() {
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, 0, 0.3f, 0, 0);
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, 0, 0.3f, 0.4f, 1);
 
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 	GraphicsEngine::get()->setShaders();
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(m_vb->getSizeVertexList(), 0);
+	// TRIANGLELIST
+	//GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(m_vb->getSizeVertexList(), 0);	
+	// TRIANGLESTRIP
+	GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);
 
 	m_swap_chain->present(false);
 }
